@@ -22,7 +22,7 @@ typedef struct VirtualMachine{
 	
 	unsigned int registers[8] = {0};
 	unsigned int segreg[4] = {0};
-    double st[8] = {0};
+	double st[8] = {0};
 	
 	Operator op1;
 	Operator op2;
