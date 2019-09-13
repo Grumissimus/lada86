@@ -1,7 +1,11 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-typedef struct Register{
+typedef unsigned int bool;
+#define true 1
+#define false 0
+
+typedef enum Register{
 	EAX = 0, ECX, EDX, EBX, ESP, EBP, ESI, EDI
 } Register;
 
@@ -38,10 +42,10 @@ typedef struct Operator{
 	unsigned int value;
 } Operator;
 
-typedef struct InstructionMode{
+typedef enum InstructionMode{
 	IM8,
 	IM16,
 	IM32
-};
+} InstructionMode;
 
 #endif

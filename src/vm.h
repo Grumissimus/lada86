@@ -5,9 +5,11 @@
 
 typedef enum VMState{
 	ERROR, NEW, READY, FINISH
-};
+} VMState;
 
 typedef struct VirtualMachine{
+	VMState state;
+	
 	struct {
 		unsigned int data;
 		unsigned int code;
@@ -20,9 +22,9 @@ typedef struct VirtualMachine{
 	unsigned int eip;
 	unsigned int eflags;
 	
-	unsigned int registers[8] = {0};
-	unsigned int segreg[4] = {0};
-	double st[8] = {0};
+	unsigned int registers[8];
+	unsigned int segreg[4];
+	double st[8];
 	
 	Operator op1;
 	Operator op2;
