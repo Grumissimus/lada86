@@ -4,6 +4,12 @@
 #include "src/instruction.h"
 
 int main(){
-	puts("Hello World");
+	VirtualMachine *vm = vm_new();
+	if(vm == NULL) return 1;
+	
+	vm_print_full(&vm);
+	
+	vm_delete(&vm);
+	
 	return 0;
 }

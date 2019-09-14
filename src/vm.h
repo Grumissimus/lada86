@@ -1,10 +1,13 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "constants.h"
 
 #ifndef VIRTUAL_MACHINE_H
 #define VIRTUAL_MACHINE_H
 
 typedef enum VMState{
-	ERROR, NEW, READY, FINISH
+	VM_ERROR, VM_NEW, VM_READY, VM_FINISH
 } VMState;
 
 typedef struct VirtualMachine{
@@ -15,7 +18,7 @@ typedef struct VirtualMachine{
 		unsigned int code;
 		unsigned int stack;
 		unsigned int extra;
-	} Size;
+	} size;
 	
 	unsigned char *program;
 		
@@ -33,15 +36,23 @@ typedef struct VirtualMachine{
 
 VirtualMachine *vm_new();
 
+boolean vm_init_data(VirtualMachine **vm, unsigned int length);
+boolean vm_init_code(VirtualMachine **vm, unsigned int length);
+boolean vm_init_stack(VirtualMachine **vm, unsigned int length);
+boolean vm_init_extra(VirtualMachine **vm, unsigned int length);
+
 boolean vm_set_data(VirtualMachine **vm, const char *data, unsigned int length);
 boolean vm_set_code(VirtualMachine **vm, const char *code, unsigned int length);
 boolean vm_set_stack(VirtualMachine **vm, const char *stack, unsigned int length);
 boolean vm_set_extra(VirtualMachine **vm, const char *extra, unsigned int length);
 
+void vm_print_full(VirtualMachine **vm);
+void vm_print_reg(VirtualMachine **vm);
+void vm_print_segreg(VirtualMachine **vm);
+void vm_print_fpreg(VirtualMachine **vm);
+
 boolean vm_run(VirtualMachine **vm);
 
-boolean vm_restore(VirtualMachine **vm);
-boolean vm_reset(VirtualMachine **vm);
 void vm_delete(VirtualMachine **vm);
 
 #endif //VIRTUAL_MACHINE_H

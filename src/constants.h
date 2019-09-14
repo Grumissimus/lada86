@@ -15,22 +15,22 @@ typedef enum SegmentRegister{
 
 typedef enum Flags{
 	CF = 1,
-	PF = 1 << 2,
-	AF = 1 << 4,
-	ZF = 1 << 6,
-	SF = 1 << 7,
-	TF = 1 << 8,
-	IF = 1 << 9,
-	DF = 1 << 10,
-	OF = 1 << 11,
-	IOPL = (1 << 12) | (1 << 13),
-	NT = 1 << 14,
-	RF = 1 << 16,
-	VM = 1 << 17,
-	AC = 1 << 18,
-	VIF = 1 << 19,
-	VIP = 1 << 20,
-	ID = 1 << 21
+	PF = 1 << 1,
+	AF = 1 << 3,
+	ZF = 1 << 5,
+	SF = 1 << 6,
+	TF = 1 << 7,
+	IF = 1 << 8,
+	DF = 1 << 9,
+	OF = 1 << 10,
+	IOPL = (1 << 11) | (1 << 12),
+	NT = 1 << 13,
+	RF = 1 << 15,
+	VM = 1 << 16,
+	AC = 1 << 17,
+	VIF = 1 << 18,
+	VIP = 1 << 19,
+	ID = 1 << 20
 } Flags;
 
 typedef enum OperatorType{
