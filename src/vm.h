@@ -21,12 +21,15 @@ typedef struct VirtualMachine{
 	
 	unsigned int registers[8];
 	unsigned int segreg[6];
-	SegmentSize size;
 	double st[8];
+	
+	SegmentSize size;
+	
+	unsigned char instruction[15];
+	unsigned int insLength;
 	
 	Operator op1;
 	Operator op2;
-	
 	
 } VirtualMachine;
 
@@ -43,6 +46,10 @@ void vm_print_full(VirtualMachine **vm);
 void vm_print_reg(VirtualMachine **vm);
 void vm_print_segreg(VirtualMachine **vm);
 void vm_print_fpreg(VirtualMachine **vm);
+
+void vm_fetch(VirtualMachine **vm);
+void vm_decode(VirtualMachine **vm);
+void vm_execute(VirtualMachine **vm);
 
 boolean vm_run(VirtualMachine **vm);
 

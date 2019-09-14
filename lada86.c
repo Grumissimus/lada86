@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "src/constants.h"
 #include "src/vm.h"
-#include "src/instruction.h"
 
 VirtualMachine *vm = NULL;
 
