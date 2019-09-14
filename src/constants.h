@@ -1,7 +1,7 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-typedef unsigned int bool;
+typedef unsigned int boolean;
 #define true 1
 #define false 0
 

@@ -33,15 +33,15 @@ typedef struct VirtualMachine{
 
 VirtualMachine *vm_new();
 
-bool vm_set_data(VirtualMachine **vm, const char *data, int length);
-bool vm_set_code(VirtualMachine **vm, const char *code, int length);
-bool vm_set_stack(VirtualMachine **vm, const char *stack, int length);
-bool vm_set_extra(VirtualMachine **vm, const char *extra, int length);
+boolean vm_set_data(VirtualMachine **vm, const char *data, unsigned int length);
+boolean vm_set_code(VirtualMachine **vm, const char *code, unsigned int length);
+boolean vm_set_stack(VirtualMachine **vm, const char *stack, unsigned int length);
+boolean vm_set_extra(VirtualMachine **vm, const char *extra, unsigned int length);
 
-bool vm_run(VirtualMachine **vm);
+boolean vm_run(VirtualMachine **vm);
 
-bool vm_restore(VirtualMachine **vm);
-bool vm_reset(VirtualMachine **vm);
+boolean vm_restore(VirtualMachine **vm);
+boolean vm_reset(VirtualMachine **vm);
 void vm_delete(VirtualMachine **vm);
 
 #endif //VIRTUAL_MACHINE_H
