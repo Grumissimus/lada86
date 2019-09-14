@@ -8,10 +8,6 @@ VirtualMachine *vm_new(){
 	}
 	
 	vm->state = VM_NEW;
-	vm->size.data = 0;
-	vm->size.code = 0;
-	vm->size.stack = 0;
-	vm->size.extra = 0;
 	
 	vm->program = NULL;
 	vm->eip = 0;
@@ -20,6 +16,7 @@ VirtualMachine *vm_new(){
 	memset(&vm->registers, 0, 8*sizeof(unsigned int));
 	memset(&vm->segreg, 0, 4*sizeof(unsigned int));
 	memset(&vm->st, 0, 8*sizeof(double));
+	memset(&vm->size, 0, sizeof(SegmentSize));
 	
 	vm->op1.type = UNK;
 	vm->op1.value = 0;
@@ -30,6 +27,43 @@ VirtualMachine *vm_new(){
 	return vm;
 }
 
+boolean vm_init_seg(VirtualMachine **vm, SegmentSize ss){
+	if(*vm == NULL) return false;
+	
+	memcpy(&(*vm)->size, &ss, sizeof(ss));
+	
+	(*vm)->segreg[CS] = 0;
+	(*vm)->segreg[DS] = ss.code;
+	(*vm)->segreg[ES] = ss.code+ss.data;
+	(*vm)->segreg[FS] = ss.code+ss.data+ss.extra;
+	(*vm)->segreg[GS] = ss.code+ss.data+ss.extra+ss.fseg+ss.gseg;
+	(*vm)->segreg[SS] = ss.code+ss.data+ss.extra+ss.fseg+ss.gseg;
+	(*vm)->registers[ESP] = ss.code+ss.data+ss.extra+ss.fseg+ss.gseg+ss.stack;
+	
+	(*vm)->program = calloc((*vm)->programSize, sizeof(1));
+	
+	return true;
+}
+
+boolean vm_load_code(VirtualMachine **vm, const char *code, unsigned int length){
+	if(*vm == NULL || code == NULL || length > (*vm)->size.code ) return false;
+	
+	memcpy(&(*vm)->program[(*vm)->segreg[CS]], code, length);
+	(*vm)->programSize = length;
+	return true;
+}
+
+boolean vm_is_ready(VirtualMachine **vm){
+	if( (*vm) == NULL ) return false;
+	if( (*vm)->state != VM_NEW ) return false;
+	if( (*vm)->program == NULL ) return false;
+	if( (*vm)->size.code == 0 && (*vm)->size.data == 0 && (*vm)->size.stack == 0 ) return false;
+	if( (*vm)->programSize == 0 ) return false;
+	
+	(*vm)->state = VM_READY;
+	
+	return true;
+}
 
 void vm_print_full(VirtualMachine **vm){
 	if(*vm == NULL) return;
@@ -79,6 +113,7 @@ void vm_print_reg(VirtualMachine **vm){
 	); 
 }
 
+
 void vm_print_segreg(VirtualMachine **vm){
 	if(*vm == NULL) return;
 	
@@ -87,11 +122,15 @@ void vm_print_segreg(VirtualMachine **vm){
 		"DS=%d\n"
 		"CS=%d\n" 
 		"SS=%d\n"
-		"ES=%d\n",
+		"ES=%d\n"
+		"FS=%d\n"
+		"GS=%d\n",
 		(*vm)->segreg[DS], 
 		(*vm)->segreg[CS],
 		(*vm)->segreg[SS],
-		(*vm)->segreg[ES]
+		(*vm)->segreg[ES],
+		(*vm)->segreg[FS],
+		(*vm)->segreg[GS]
 	); 
 }
 

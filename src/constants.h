@@ -48,4 +48,13 @@ typedef enum InstructionMode{
 	IM32
 } InstructionMode;
 
+typedef struct SegmentSize{
+	unsigned int data;
+	unsigned int code;
+	unsigned int stack;
+	unsigned int extra;
+	unsigned int fseg;
+	unsigned int gseg;
+} SegmentSize;
+
 #endif

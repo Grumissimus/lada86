@@ -13,38 +13,31 @@ typedef enum VMState{
 typedef struct VirtualMachine{
 	VMState state;
 	
-	struct {
-		unsigned int data;
-		unsigned int code;
-		unsigned int stack;
-		unsigned int extra;
-	} size;
-	
 	unsigned char *program;
-		
+	unsigned int programSize;
+	
 	unsigned int eip;
 	unsigned int eflags;
 	
 	unsigned int registers[8];
-	unsigned int segreg[4];
+	unsigned int segreg[6];
+	SegmentSize size;
 	double st[8];
 	
 	Operator op1;
 	Operator op2;
 	
+	
 } VirtualMachine;
 
 VirtualMachine *vm_new();
 
-boolean vm_init_data(VirtualMachine **vm, unsigned int length);
-boolean vm_init_code(VirtualMachine **vm, unsigned int length);
-boolean vm_init_stack(VirtualMachine **vm, unsigned int length);
-boolean vm_init_extra(VirtualMachine **vm, unsigned int length);
+boolean vm_init_seg(VirtualMachine **vm, SegmentSize ss);
 
-boolean vm_set_data(VirtualMachine **vm, const char *data, unsigned int length);
-boolean vm_set_code(VirtualMachine **vm, const char *code, unsigned int length);
-boolean vm_set_stack(VirtualMachine **vm, const char *stack, unsigned int length);
-boolean vm_set_extra(VirtualMachine **vm, const char *extra, unsigned int length);
+boolean vm_load_code(VirtualMachine **vm, const char *code, unsigned int length);
+boolean vm_load_data(VirtualMachine **vm, const char *data, unsigned int length);
+
+boolean vm_is_ready(VirtualMachine **vm);
 
 void vm_print_full(VirtualMachine **vm);
 void vm_print_reg(VirtualMachine **vm);

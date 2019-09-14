@@ -11,6 +11,10 @@ typedef enum ExceptionCode{
 	VM_FLOAT_DIVIDE_BY_ZERO,
 	VM_INTEGER_OVERFLOW,
 	VM_INTEGER_UNDERFLOW
+	VM_STACK_OVERFLOW,
+	VM_BUFFER_OVERFLOW
 } ExceptionCode;
+
+void raise_exception(ExceptionCode);
 
 #endif //VM_EXCEPTION_H
