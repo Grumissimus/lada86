@@ -3,7 +3,7 @@
 #define INSTRUCTION_H
 
 typedef struct Instruction{
-	word prefixes;
+	byte prefixes[4];
 	word opcode;
 	void *src;
 	void *des;

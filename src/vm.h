@@ -25,6 +25,8 @@ typedef struct VirtualMachine{
 	dword segreg[6];
 	dword control[5];
 	double st[8];
+	
+	Instruction ins;
 } VirtualMachine;
 
 VirtualMachine *vm_new();
@@ -42,7 +44,7 @@ boolean vm_run(VirtualMachine **vm);
 
 void vm_delete(VirtualMachine **vm);
 
-/* Please don't use marcros below outside vm.c or vm.h */
+/* Please, don't use these macros below outside vm.c or vm.h */
 #define REGISTER(x) (*vm)->registers[(x)]
 #define SEG_REGISTER(x) (*vm)->segreg[(x)]
 #define CNTL_REGISTER(x) (*vm)->control[(x)]

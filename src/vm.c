@@ -16,6 +16,7 @@ VirtualMachine *vm_new(){
 	memset(&vm->segreg, 0, 6*sizeof(dword));
 	memset(&vm->control, 0, 5*sizeof(dword));
 	memset(&vm->st, 0, 8*sizeof(double));
+	memset(&vm->ins, 0, sizeof(Instruction));
 	
 	return vm;
 }
