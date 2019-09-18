@@ -1,4 +1,4 @@
-FILES = src/vm.c
+FILES =
 
 OBJS = lada86.c $(FILES)
 
